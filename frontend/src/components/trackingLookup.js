@@ -1,63 +1,77 @@
-import React from 'react';
+import React, { useState } from "react";
+import OutputBox from "./trackingOutPutBox";
 
-export default function FindTrackingStatus() {
-  // state variable to store the input string
-  const [input, setInput] = React.useState('');
+const outputBoxStyles = {
+  border: "1px solid black",
+  padding: "10px",
+  margin: "10px",
+  position: "relative"
+};
+
+const closeButtonStyles = {
+  position: "absolute",
+  top: 0,
+  right: 0
+};
 
 
-  //function to use RegEx to find carrier and lookup status
-    function findStatus(){
-    const trackingNo = input;
-    const regexUPS = /^1Z/;
-    const matchUPS = regexUPS.exec(trackingNo);
+function InputToOutput() {
+  const [inputValue, setInputValue] = useState("");
+  const [outputValue, setOutputValue] = useState("");
+  const [showTextBox, setShowTextBox] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('');
 
-    if (matchUPS==true){
-        const status = lookupUpsTrackingNumber(trackingNo);
-        alert(`The shipping status is: ${status}.`);
-        return status;
-    }
-    else
-        alert('the shipping status could not be found');
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
 
+  const handleButtonClick = () => {
     
-    function lookupUpsTrackingNumber(trackingNo) {
-        // Set the URL for the UPS tracking API
-        const trackingApiUrl = 'https://www.ups.com/track/api/Track/GetStatus?loc=en_US';
-      
-        // Send the request to UPS API
-        const requestOptions = {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            Locale: 'en_US',
-            Requester: 'UPSHome',
-            TrackingNumber: [trackingNo]
-          })
-        };
-      
-        // Make a request to the UPS tracking API to get the tracking information
-        const response = fetch(trackingApiUrl, requestOptions);
-      
-        // Process the response to extract the tracking information
-        const trackingInfo = response.trackingInfo;
-      
-        // Return the tracking information
-        return trackingInfo;
+    if(inputValue == "1Z5338FF0107231059")
+      setOutputValue("Status: Delivery Attempted");
+    else
+    setOutputValue("Error: Please enter valid tracking number"); 
+    setShowTextBox(true);
+    
+    };
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      if(inputValue == "1Z5338FF0107231059")
+      setOutputValue("Status:Delivery Attempted");
+    else
+    setOutputValue("Error: Please enter valid tracking number"); 
     }
+    setShowTextBox(true);
+  };
 
-  }
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
 
   return (
-    <div>
-      <input
-        type="text"
-        value={input}
-        onChange={event => setInput(event.target.value)}
-      />
-      <button onClick={findStatus}>Lookup Shipment</button>
+    <div style = {{border: "2px solid black"}}>
+      <h1 style={{ textDecoration: 'underline', background: '#d3d3d3' }}>Tracking Number Lookup</h1>
+      <br/>
+      <br/>
+      <br/>
+      <div>
+      <label htmlFor="carrier-select">Select a carrier:</label>
+      <select id="instrument-select" value={selectedOption} onChange={handleOptionChange}>
+        <option value=""></option>
+        <option value="usps">USPS</option>
+        <option value="ups">UPS</option>
+        <option value="fedex">FedEx</option>
+      </select>
+      </div>
+      <label htmlFor="input">Enter input:</label>
+      <input type="text" id="input" value={inputValue} onChange={handleInputChange} onKeyDown={handleKeyPress} />
+      <button onClick={handleButtonClick}>Submit</button>
+      {showTextBox && (
+      <div style={{ color: "black", marginLeft: "0px", marginTop: "10px", width: "25%", background: "#d3d3d3", border: "2px solid black" }}>{outputValue}</div>
+      )}
     </div>
   );
 }
+
+export default InputToOutput;

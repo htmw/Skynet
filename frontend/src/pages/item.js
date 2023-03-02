@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import Quagga from 'quagga'
+// import Quagga from 'quagga'
 import { useScanner } from "../components/useScanner";
 let lock = false;
 
@@ -12,7 +12,12 @@ export default function Item() {
   const [note, setNote] = useState('');
   const [supplierId, setSupplierId] = useState('');
   const [classification, setClassification] = useState('');
+  const [classifyArr, setClassifyArr] = useState([])
   const { start } = useScanner();
+
+  const [costOrder, setCostOrder] = useState(undefined);
+  const [priceOrder, setPriceOrder] = useState(undefined);
+  const [classification2, setClassification2] = useState(undefined);
 
   function getToken() {
     const tokenString = sessionStorage.getItem('token');
@@ -29,7 +34,39 @@ export default function Item() {
     Classification: "",
   };
   React.useEffect(() => {
-    fetch("http://localhost:8000/item", {
+    listItem();
+  }, []);
+
+  const costChanged = (event) => {
+    // console.log(event.target.value);
+    setCostOrder(event.target.value);
+  };
+
+  const priceChanged = (event) => {
+    // console.log(event.target.value);
+    setPriceOrder(event.target.value);
+  };
+
+  const classificationChanged = (event) => {
+    // console.log(event.target.value);
+    setClassification2(event.target.value);
+  };
+
+
+  const listItem = () => {
+    let url = "http://localhost:8000/item?";
+    if(costOrder && costOrder != ''){
+      url += "costOrder=" + costOrder;
+    }
+    if(priceOrder && priceOrder != ''){
+      url += "priceOrder=" + priceOrder;
+    }
+
+    if(classification2 && classification2 != ''){
+      url += "classification=" + classification2;
+    }
+
+    fetch(url, {
       headers: new Headers({
         'Authorization': 'Bearer ' + getToken()
       })
@@ -37,13 +74,20 @@ export default function Item() {
       .then((res) => res.json())
       .then((data) => {
         setItems(data);
-        items.map((item) => { });
+        let classify = [];
+        data.map((item) => { 
+            if(classify.indexOf(item.classification) == -1){
+              classify.push(item.classification);
+            }
+        });
+        setClassifyArr(classify);
         setLoading(false);
       }).catch((error) => {
         console.log('error: ' + error);
         // this.setState({ requestFailed: true });
       });
-  }, []);
+  }
+
   const inputChanged = (event) => {
     formDatas[event.target.name] = event.target.value;
   };
@@ -210,6 +254,18 @@ export default function Item() {
     })
   }
 
+  const search = () => {
+    listItem();
+  }
+
+const reset = () => {
+    setPriceOrder(undefined);
+    setCostOrder(undefined);
+    setTimeout(() => {
+        listItem();
+    }, 0);
+}
+
 
   // loading
   if (loading) {
@@ -222,6 +278,31 @@ export default function Item() {
     <div>
       <div>
         <h1 className="title is-1">Item</h1>
+        <div style={{margin: '10px'}}>
+            Cost:
+            <select placeholder="cost" value={costOrder} onChange={costChanged} style={{margin: '10px', padding: '10px'}}>
+              <option style={{display:'none'}}></option>
+              <option value="cost">Low to High</option>
+              <option value="-cost">High to Low</option>
+            </select>
+            Selling Price:
+            <select placeholder="price" value={priceOrder} onChange={priceChanged} style={{margin: '10px', padding: '10px'}}>
+              <option style={{display:'none'}}></option>
+              <option value="sellingPrice">Low to High</option>
+              <option value="-sellingPrice">High to Low</option>
+            </select>
+            Classification:
+            <select value={classification2} onChange={classificationChanged} style={{margin: '10px', padding: '10px'}}>
+              <option style={{display:'none'}}></option>
+              <option value="Fruit">Fruit</option>
+              <option value="Food">Food</option>
+              <option value="Gas">Gas</option>
+              <option value="Beverage">Beverage</option>
+              <option value="Equipment">Equipment</option>
+            </select>
+            <button className="button is-primary" onClick={search} style={{margin: '10px', padding: '10px'}}>Search</button>
+            <button className="button is-primary" onClick={reset} >Reset</button>
+        </div>
         {/* add button */}
         <button className="button is-primary" onClick={addItem}>Add Item</button>
       </div>
@@ -315,6 +396,7 @@ export default function Item() {
 
         </div>
       </div>
+
     </div>
   );
 }

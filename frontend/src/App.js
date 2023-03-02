@@ -10,6 +10,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // React Router import S
 import SupplierManagement from './pages/suppliermanagement';
 import Item from './pages/item';
+import InventoryPage from './pages/inventory';
+import Order from './pages/order';
 function setToken(userToken) {
     sessionStorage.setItem('token', JSON.stringify(userToken['access']));
 }
@@ -39,8 +41,8 @@ function App() {
                                 <Route path="/" element={<Dashboard />} />
                                 <Route path="/suppliermanagement" element={<SupplierManagement />} />
                                 <Route path="/item" element={<Item />} />
-                                <Route path="/inventory" element={<Item />} />
-                                <Route path="/order" element={<Item />} />
+                                <Route path="/inventory" element={<InventoryPage />} />
+                                <Route path="/order" element={<Order />} />
                                 <Route path="/tracking" element ={<FindTrackingStatus/>}  />
                             </Routes>
                         </div>
