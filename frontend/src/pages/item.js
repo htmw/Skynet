@@ -305,6 +305,10 @@ const reset = () => {
         </div>
         {/* add button */}
         <button className="button is-primary" onClick={addItem}>Add Item</button>
+        {/* button that redirects to the item visualization page */}
+        <a href="/itemchart">
+          <button className="button is-primary" >Visualize</button>
+        </a>
       </div>
 
       <div className="data-table">
