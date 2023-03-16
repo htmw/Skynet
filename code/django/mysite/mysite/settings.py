@@ -82,16 +82,30 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+#DATABASES = {
+#     'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'backendData',
+#        'USER': 'admin',
+#        'PASSWORD': 'CSTerminator1!',
+#        'HOST': 'skynet-database.c5swwgsgblau.us-east-1.rds.amazonaws.com',
+#        'PORT': '3306',
+#    }
+#}
+
 DATABASES = {
-     'default': {
+    'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'backendData',
-        'USER': 'admin',
-        'PASSWORD': 'Password1',
-        'HOST': 'skynet-database.c5swwgsgblau.us-east-1.rds.amazonaws.com',
+        'NAME': 'skynet',
+        'USER': 'root',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
+
+
+
 
 
 # Password validation

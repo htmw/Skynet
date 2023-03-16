@@ -44,6 +44,7 @@ function App() {
                                 <Route path="/inventory" element={<InventoryPage />} />
                                 <Route path="/order" element={<Order />} />
                                 <Route path="/tracking" element ={<FindTrackingStatus/>}  />
+                                <Route path="/crash" element={<Item />} />  {/* what is this crash? */}
                             </Routes>
                         </div>
                     </div>

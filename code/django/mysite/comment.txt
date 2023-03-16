@@ -1,0 +1,3 @@
+pip install -r requirements.txt
+
+For future development, please develop base on the Versions in this release, all group members please PULL again before work.
