@@ -12,6 +12,9 @@ import SupplierManagement from './pages/suppliermanagement';
 import Item from './pages/item';
 import InventoryPage from './pages/inventory';
 import Order from './pages/order';
+import ItemChart from './pages/itemchart';
+import OrderChart from './pages/orderchart';
+
 function setToken(userToken) {
     sessionStorage.setItem('token', JSON.stringify(userToken['access']));
 }
@@ -19,8 +22,8 @@ function setToken(userToken) {
 function getToken() {
     const tokenString = sessionStorage.getItem('token');
   const userToken = JSON.parse(tokenString);
-//   console.log(userToken,userToken != null && userToken.length > 1);  
-  return userToken != null && userToken.length > 1; 
+//   console.log(userToken,userToken != null && userToken.length > 1);
+  return userToken != null && userToken.length > 1;
 }
 
 function App() {
@@ -44,6 +47,8 @@ function App() {
                                 <Route path="/inventory" element={<InventoryPage />} />
                                 <Route path="/order" element={<Order />} />
                                 <Route path="/tracking" element ={<FindTrackingStatus/>}  />
+                                <Route path="/itemchart" element ={<ItemChart />}  />
+                                <Route path="/orderchart" element ={<OrderChart />}  />
                                 <Route path="/crash" element={<Item />} />  {/* what is this crash? */}
                             </Routes>
                         </div>

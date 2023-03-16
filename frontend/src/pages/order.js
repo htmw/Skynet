@@ -175,6 +175,10 @@ export default function Order() {
       <h1 className="title is-1">Order</h1>
       {/* add button */}
       <button className="button is-primary" onClick={addOrder}>Add Order</button>
+      {/* button that redirects to the item visualization page */}
+      <a href="/orderchart">
+          <button className="button is-primary" >Visualize</button>
+        </a>
     </div>
 
       <div className="data-table">
