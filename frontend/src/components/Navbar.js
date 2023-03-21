@@ -9,8 +9,8 @@ const Navbar = () => {
         <div className="navbar-wrapper">
             <div className="navbar-brand header-logo">
                 <a href="#" className="b-brand">
-                    <div className="b-bg">
-                        <i className="feather icon-trending-up"></i>
+                    <div >
+                        <img className  = "nav-logo" src= "logoImg.png"   />
                     </div>
                     <span className="b-title">SkyNet</span>
                 </a>
