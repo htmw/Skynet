@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
 import Dashboard from './pages/dashboard';
-import Login from './components/Auth/login';
 import FindTrackingStatus from './components/trackingLookup';
 // import
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -30,9 +29,6 @@ function App() {
     const token = getToken();
     // const [token, setToken] = useState();
 
-    if(!token) {
-        return <Login setToken={setToken} />
-      }
     return (
         <BrowserRouter>
             <Navbar />
