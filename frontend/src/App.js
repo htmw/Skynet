@@ -12,6 +12,7 @@ import InventoryPage from './pages/inventory';
 import Order from './pages/order';
 import ItemChart from './pages/itemchart';
 import OrderChart from './pages/orderchart';
+import TrackingUSPS from './components/trackingUSPS';
 
 function setToken(userToken) {
     sessionStorage.setItem('token', JSON.stringify(userToken['access']));
@@ -42,6 +43,7 @@ function App() {
                                 <Route path="/inventory" element={<InventoryPage />} />
                                 <Route path="/order" element={<Order />} />
                                 <Route path="/tracking" element ={<FindTrackingStatus/>}  />
+                                <Route path="/trackingUSPS" element ={<TrackingUSPS />}  />
                                 <Route path="/itemchart" element ={<ItemChart />}  />
                                 <Route path="/orderchart" element ={<OrderChart />}  />
                                 <Route path="/crash" element={<Item />} />  {/* what is this crash? */}
