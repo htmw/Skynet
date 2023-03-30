@@ -36,6 +36,9 @@ const Navbar = () => {
                     <li data-username="Table bootstrap datatable footable" className="nav-item">
                         <NavLink to="/crash" className="nav-link is-active "><span className="pcoded-micon"><i className="feather icon-server"></i></span><span className="pcoded-mtext">Crash</span></NavLink>
                     </li>
+                    <li data-username="Table bootstrap datatable footable" className="nav-item">
+                        <NavLink to="/tracking" className="nav-link is-active "><span className="pcoded-micon"><i className="feather icon-server"></i></span><span className="pcoded-mtext">Tracking</span></NavLink>
+                    </li>
                     </ul>
             </div>
         </div>
