@@ -1,6 +1,5 @@
 import React from "react";
 import AppCss from '../App.css';
-
 export default function InventoryPage() {
     const [items, setItems] = React.useState([]);
     const [allItems, setAllItems] = React.useState([]);
@@ -11,6 +10,14 @@ export default function InventoryPage() {
     const [quantityOrder, setQuantityOrder] = React.useState('');
     const [expirationDateOrder, setExpirationDateOrder] = React.useState('');
 
+    const [quantity, setQuantity] = React.useState('');
+    const [lowQuantityItems, setLowQuantityItems] = React.useState([]);
+    
+    function handleCheck() {
+        const lowQuantity = items.filter((items) => items.quantity < quantity);
+        setLowQuantityItems(lowQuantity);
+      }
+    
     let formDatas = {
         stackID: "",
         itemID: "",
@@ -34,6 +41,7 @@ export default function InventoryPage() {
     const expirationDateChanged = (event) => {
         setExpirationDateOrder(event.target.value);
     }
+
 
     const listItem = (id) => {
         let url = 'http://localhost:8000/inventory/?';
@@ -76,10 +84,8 @@ export default function InventoryPage() {
                         count++;
                         itemStr += "," + json[i].itemID;
                     }
-                }
-                if(count > 0){
-                    window.confirm("Lack of stock,ItemId: " + itemStr);
-                }
+                
+            }
             })
             .catch(err => console.log(err));
     }
@@ -100,7 +106,6 @@ export default function InventoryPage() {
             listItem();
         }, 0);
     }
-
     const saveChanges = () => {
         // get the values from the form
         console.log("saving changes");
@@ -110,7 +115,6 @@ export default function InventoryPage() {
         // window.location.reload();
     
     };
-
     
     const print = () => {
         // console.log(AppCss);
@@ -279,6 +283,22 @@ export default function InventoryPage() {
                 <button className="button is-primary" onClick={search} style={{margin: '10px', padding: '10px'}}>Search</button>
                 <button className="button is-primary" onClick={reset} >Reset</button>
             </div>
+            <div>
+            <label htmlFor="quantity">Enter Quantity:</label>
+             <input type="number" id="quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)}/>
+                <button onClick={handleCheck}>Check Inventory</button>
+                    {lowQuantityItems.length > 0 ? (
+            <div>
+                    <h2>Low Quantity Items:</h2>
+                <ul>
+                    {lowQuantityItems.map((items) => (
+                    <li key={items.id}> (The inventory ID) {items.itemID} : {items.quantity} </li>
+                        ))}
+                </ul>
+            </div>
+                ) : null}
+            </div>
+
             {/* add button */}
             <button className="button is-primary" onClick={addItem} >Add Inventory</button>
             {/* <button className="button is-primary" onClick={print} >Print</button> */}
@@ -347,7 +367,7 @@ export default function InventoryPage() {
                                 <div className="control">
                                 <input className="input" type="text" placeholder="Item ID" id="itemID" name="itemID" onChange={inputChanged}/>
                                 </div>
-                            </div>
+                            </div>   
                         </form>
                     </section>
                     <footer className="modal-footer">
