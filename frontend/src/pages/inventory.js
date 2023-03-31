@@ -9,7 +9,7 @@ export default function InventoryPage() {
   const [itemId, setItemId] = React.useState('')
   const [quantityOrder, setQuantityOrder] = React.useState('')
   const [expirationDateOrder, setExpirationDateOrder] = React.useState('')
-  const [lzw, setlzw] = React.useState(0)
+  const [check, setCheck] = React.useState(0)
   let quantityCheck = undefined
 
   let formDatas = {
@@ -28,7 +28,7 @@ export default function InventoryPage() {
         len--
       }
     }
-    setlzw(Math.round(Math.random() * 10))
+    setCheck(Math.round(Math.random() * 10))
   }
 
   React.useEffect(() => {
