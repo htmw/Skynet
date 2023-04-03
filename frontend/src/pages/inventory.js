@@ -9,7 +9,8 @@ export default function InventoryPage() {
   const [itemId, setItemId] = React.useState('')
   const [quantityOrder, setQuantityOrder] = React.useState('')
   const [expirationDateOrder, setExpirationDateOrder] = React.useState('')
-  const [check, setCheck] = React.useState(0)
+  const [Check, setCheck] = React.useState(0)
+  const [lowQuantityItems, setLowQuantityItems] = React.useState([]);
   let quantityCheck = undefined
 
   let formDatas = {
@@ -20,6 +21,9 @@ export default function InventoryPage() {
     inboundDate: ''
   }
   const handleCheck = () => {
+    const lowQuantity = items.filter((items) => items.quantity < quantityCheck);
+    setLowQuantityItems(lowQuantity);
+
     setItemsto(Itemsto)
     for (let i = 0, len = items.length; i < len; i++) {
       if (items[i].quantity > quantityCheck) {
@@ -322,6 +326,16 @@ export default function InventoryPage() {
           <label htmlFor="quantity">Enter Quantity:</label>
           <input type="number" value={quantityCheck} onChange={change} />
           <button onClick={handleCheck}>Check Inventory</button>
+          {lowQuantityItems.length > 0 ? (
+            <div>
+                    <h2>Low Quantity Items:</h2>
+                <ul>
+                    {lowQuantityItems.map((items) => (
+                    <li key={items.id}> (The inventory ID) {items.itemID} : {items.quantity} </li>
+                        ))}
+                </ul>
+            </div>
+                ) : null}
         </div>
 
         {/* add button */}
