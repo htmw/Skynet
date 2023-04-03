@@ -1,5 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import *
+import requests
+import json
+from datetime import datetime
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.request import Request
@@ -158,3 +161,66 @@ class DeleteOrderView(APIView):
         order = Order.objects.get(pk = pk)
         order.delete()
         return Response("Order deleted")
+    
+#tracking functions
+
+def get_ups_tracking_info(response, tracking_number):
+    trans_id = '12345'
+    transaction_src = 'Skynet Capstone'
+    access_license_number = '0DD15E0D975760E1'
+
+    url = f'https://wwwcie.ups.com/track/v1/details/{tracking_number}'
+    headers = {
+        'transID': trans_id,
+        'transactionSrc': transaction_src,
+        'AccessLicenseNumber': access_license_number
+    }
+
+    response = requests.get(url, headers=headers)
+    json_response = json.loads(response.content)
+    status_descriptions = []
+    for activity in json_response['trackResponse']['shipment'][0]['package'][0]['activity']:
+        status = activity['status']['description']
+        date = datetime.strptime(activity['date'], '%Y%m%d').date()
+        time = datetime.strptime(activity['time'], '%H%M%S').time()
+        status_descriptions.append(f'Status: {status.rstrip()}: Date: {date} at {time}')
+
+    pretty_response = json.dumps(status_descriptions, indent=4)
+
+
+    print(HttpResponse(pretty_response, content_type="application/json"))
+
+    return HttpResponse(pretty_response, content_type="application/json")
+
+
+#test function to veiw the JSON response format
+def test_ups_tracking_info(response):
+    tracking_number = '1Z5338FF0107231059'
+    trans_id = '12345'
+    transaction_src = 'Skynet Capstone'
+    access_license_number = '0DD15E0D975760E1'
+
+    url = f'https://wwwcie.ups.com/track/v1/details/{tracking_number}'
+    headers = {
+        'transID': trans_id,
+        'transactionSrc': transaction_src,
+        'AccessLicenseNumber': access_license_number
+    }
+
+    response = requests.get(url, headers=headers)
+    json_response = json.loads(response.content)
+    status_descriptions = []
+    for activity in json_response['trackResponse']['shipment'][0]['package'][0]['activity']:
+        status = activity['status']['description']
+        date = datetime.strptime(activity['date'], '%Y%m%d')
+        time = datetime.strptime(activity['time'], '%H%M%S')
+        status_descriptions.append(f'Status: {status.rstrip()}: Date: {date} at {time}')
+
+    pretty_response = json.dumps(status_descriptions, indent=4)
+    #pretty_response = json.dumps(json_response, indent=4)
+
+
+    print(HttpResponse(pretty_response, content_type="application/json"))
+
+    return HttpResponse(pretty_response, content_type="application/json")
+

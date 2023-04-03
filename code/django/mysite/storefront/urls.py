@@ -54,6 +54,13 @@ urlpatterns = [
 
      path('goodsReceipt/', views.GoodsReceiptView.as_view(), name='storefront-goodsReceipt'),
 
+     #tracking URLS
+
+     path('tracking_UPS/<str:tracking_number>/', views.get_ups_tracking_info, name= 'get_ups_tracking_info' ),
+     #path('tracking_UPS/', views.get_ups_tracking_info, name= 'get_ups_tracking_info' ),
+     path('test_ups_tracking_info/', views.test_ups_tracking_info)
+    
+
 
 
 ]

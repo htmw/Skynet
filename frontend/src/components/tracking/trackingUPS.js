@@ -1,42 +1,41 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
+import logo from './Logos/LOGO_S.jpg'
 
-function TrackingPage() {
+
+
+function TrackingUPS() {
   const [trackingNumber, setTrackingNumber] = useState('');
-  const [status, setStatus] = useState('');
+  const [statusDescription, setStatusDescription] = useState('');
+ 
 
-  const handleTrackingNumberChange = (event) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const response = await axios.get(`http://localhost:8000/tracking_UPS/${trackingNumber}`);
+    setStatusDescription(response.data.join('\n'));
+  };
+
+  const handleChange = (event) => {
     setTrackingNumber(event.target.value);
   };
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.get(`https://onlinetools.ups.com/track/v1/details/${trackingNumber}`, {
-        headers: {
-          "AccessLicenseNumber": 'vBp1ER70HisKWtX5jr7GNyrdhhCrmrkNtQIRADaYAfAhwQhS',
-          "Content-Type": "application/json"
-        }
-      });
-      setStatus(response.data.trackDetails[0].shipmentProgressActivities[0].statusType.description);
-    } catch (error) {
-      setStatus('Error: Unable to retrieve tracking information.');
-    }
-  };
-
   return (
-    <div class = "tracking-output">
-      <h1 class = "tracking-header">UPS Tracking</h1>
-      <form onSubmit={handleFormSubmit}>
+    <div>
+      <img src={logo} />
+      <br/>
+      <br/>
+      <form onSubmit={handleSubmit}>
         <label>
-          Tracking Number:
-          <input type="text" value={trackingNumber} onChange={handleTrackingNumberChange} />
+          Tracking number: 
+          <input type="text" value={trackingNumber} onChange={handleChange} />
         </label>
         <button type="submit">Track</button>
       </form>
-      {status && <div>Status: {status}</div>}
+      <div>
+        <pre>{statusDescription}</pre>
+      </div>
     </div>
   );
 }
 
-export default TrackingPage;
+export default TrackingUPS;

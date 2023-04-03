@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware', #This was needed for cors to work
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    #'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',#used to fix UPS CORS issue
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
