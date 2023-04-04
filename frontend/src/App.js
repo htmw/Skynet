@@ -11,6 +11,7 @@ import InventoryPage from './pages/inventory';
 import Order from './pages/order';
 import ItemChart from './pages/itemchart';
 import OrderChart from './pages/orderchart';
+import Cash from './pages/cash';
 import TrackingUSPS from './components/tracking/trackingUSPS';
 import TrackingRedirect from './components/tracking/trackingRedirect';
 import TrackingUPS from './components/tracking/trackingUPS';
@@ -24,9 +25,10 @@ function setToken(userToken) {
 
 function getToken() {
     const tokenString = sessionStorage.getItem('token');
-  const userToken = JSON.parse(tokenString);
+//   const userToken = JSON.parse(tokenString);
 //   console.log(userToken,userToken != null && userToken.length > 1);
-  return userToken != null && userToken.length > 1;
+//   return userToken != null && userToken.length > 1;
+    return tokenString;
 }
 
 function App() {
@@ -51,10 +53,11 @@ function App() {
                                 <Route path="/trackingUPS" element ={<TrackingUPS />}  />
                                 <Route path="/itemchart" element ={<ItemChart />}  />
                                 <Route path="/orderchart" element ={<OrderChart />}  />
-                                <Route path="/crash" element={<Item />} />  {/* what is this crash? */}
+                                <Route path="/cashregisters" element={<Cash />} />  {/* what is this crash? */}
                             </Routes>
                         </div>
                     </div>
+
                 </div>
             </div>
         </BrowserRouter>
