@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
+import Print from 'react-print-html'
 import './cash.css';
 
 export default function Cash() {
   const [items, setItems] = React.useState([]);
+  let printTemp = useRef(null)
   const [total, setTotal] = React.useState(0.0);
   const [dateStr, setDateStr] = React.useState('');
   const [loading, setLoading] = React.useState(true);
@@ -127,108 +129,120 @@ export default function Cash() {
     });
   }
 
+  const print = () => {
+    // window.print();
+    setTimeout(() => {
+      Print(printTemp.current)
+    })
+  }
+
   
   // loading
   if (loading) {
     return <div>Loading...</div>;
   }
 
-
+  const start = `<!--startprint-->`
+  const end = `<!--endprint-->`
 
   return (
-    <div className="cash_div">
-      <header>
-        <h1>Invoice</h1>
-        <address >
-          <p>One Pace Plaza</p>
-          <p>New York, NY 10038</p>
-        </address>
-        {/* <span><img alt="" src="http://www.jonathantneal.com/examples/invoice/logo.png" /><input type="file" accept="image/*" /></span> */}
-      </header>
-      <article>
-        <h1>Recipient</h1>
-        <address >
-          <p>Some Company<br/>c/o Some Guy</p>
-        </address>
-        <table className="meta">
-          <tbody>
-            <tr>
-              <th><span >Invoice #</span></th>
-              <td><span >101138</span></td>
-            </tr>
-            <tr>
-              <th><span >Date</span></th>
-              <td><span >{dateStr}</span></td>
-            </tr>
-            <tr>
-              <th><span >Amount Due</span></th>
-              <td><span id="prefix" >$</span><span>{total}</span></td>
-            </tr>
-          </tbody>
-        </table>
+    <div>
+        <div className="cash_div" id="cash_div" ref={printTemp}>
+        <header>
+          <h1>Invoice</h1>
+          <address >
+            <p>One Pace Plaza</p>
+            <p>New York, NY 10038</p>
+          </address>
+          {/* <span><img alt="" src="http://www.jonathantneal.com/examples/invoice/logo.png" /><input type="file" accept="image/*" /></span> */}
+        </header>
+        <article>
+          <h1>Recipient</h1>
+          <address >
+            <p>Some Company<br/>c/o Some Guy</p>
+          </address>
+          <table className="meta">
+            <tbody>
+              <tr>
+                <th><span >Invoice #</span></th>
+                <td><span >101138</span></td>
+              </tr>
+              <tr>
+                <th><span >Date</span></th>
+                <td><span >{dateStr}</span></td>
+              </tr>
+              <tr>
+                <th><span >Amount Due</span></th>
+                <td><span id="prefix" >$</span><span>{total}</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div>
+              <button className="addBtn" onClick={addItem}>+</button>
+              {/* {arr.length} */}
+          </div>
+          <table className="inventory">
+            <thead>
+              <tr>
+                <th><span >Item</span></th>
+                <th><span >Description</span></th>
+                <th><span >Rate</span></th>
+                <th><span >Quantity</span></th>
+                <th><span >Price</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                arr.map((e, index) => (
+                  <tr key={index}>
+                    <td>
+                      <button className="cutBtn" onClick={() => delItem(index)}>-</button>
+                      <select name="" id="" value={e.id} onChange={e => setItemId(e.target.value, index)}>
+                        <option value="-1"></option>
+                        {items.map((i, index2) => (
+                          <option key={index2} value={index2}>{i.description}</option>
+                        ))}
+                      </select>
+                    </td>
+                    <td><span >{e.note}</span></td>
+                    <td><span data-prefix>$</span><span >{e.sellingPrice}</span></td>
+                    <td><span ><input value={e.quantity} type="number" min="1" onChange={e => setQuantity(e.target.value, index)}/></span></td>
+                    <td><span data-prefix>$</span><span>{e.sellingPrice * e.quantity}</span></td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+          {/* <a className="add">+</a> */}
+          <table className="balance">
+            <tbody>
+              <tr>
+                <th><span >Total</span></th>
+                <td><span data-prefix>$</span><span>{total}</span></td>
+              </tr>
+              <tr>
+                <th><span >Amount Paid</span></th>
+                <td><span data-prefix>$</span><span >0.00</span></td>
+              </tr>
+              <tr>
+                <th><span >Balance Due</span></th>
+                <td><span data-prefix>$</span><span>{total}</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
         <div>
-            <button className="addBtn" onClick={addItem}>+</button>
-            {/* {arr.length} */}
+            <button className="cash" onClick={cash}>Submit</button>
+            <button className="print" onClick={print}>Print</button>
         </div>
-        <table className="inventory">
-          <thead>
-            <tr>
-              <th><span >Item</span></th>
-              <th><span >Description</span></th>
-              <th><span >Rate</span></th>
-              <th><span >Quantity</span></th>
-              <th><span >Price</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              arr.map((e, index) => (
-                <tr key={index}>
-                  <td>
-                    <button className="cutBtn" onClick={() => delItem(index)}>-</button>
-                    <select name="" id="" value={e.id} onChange={e => setItemId(e.target.value, index)}>
-                      <option value="-1"></option>
-                       {items.map((i, index2) => (
-                         <option key={index2} value={index2}>{i.description}</option>
-                       ))}
-                    </select>
-                  </td>
-                  <td><span >{e.note}</span></td>
-                  <td><span data-prefix>$</span><span >{e.sellingPrice}</span></td>
-                  <td><span ><input value={e.quantity} type="number" min="1" onChange={e => setQuantity(e.target.value, index)}/></span></td>
-                  <td><span data-prefix>$</span><span>{e.sellingPrice * e.quantity}</span></td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-        {/* <a className="add">+</a> */}
-        <table className="balance">
-          <tbody>
-            <tr>
-              <th><span >Total</span></th>
-              <td><span data-prefix>$</span><span>{total}</span></td>
-            </tr>
-            <tr>
-              <th><span >Amount Paid</span></th>
-              <td><span data-prefix>$</span><span >0.00</span></td>
-            </tr>
-            <tr>
-              <th><span >Balance Due</span></th>
-              <td><span data-prefix>$</span><span>{total}</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </article>
-      <div>
-          <button className="cash" onClick={cash}>Cash</button>
+        <aside>
+          <h1><span >Additional Notes</span></h1>
+          <div >
+            <p>A finance charge of 1.5% will be made on unpaid balances after 30 days.</p>
+          </div>
+        </aside>
       </div>
-      <aside>
-        <h1><span >Additional Notes</span></h1>
-        <div >
-          <p>A finance charge of 1.5% will be made on unpaid balances after 30 days.</p>
-        </div>
-      </aside>
     </div>
+    
   );
 }

@@ -163,9 +163,28 @@ aside h1 { border-color: #999; border-bottom-style: solid; }
 	text-align: center;
 	margin: 0 auto;
 	position: relative;
-	margin-left: 42%;
+	margin-left: 40%;
 	margin-bottom: 10px;
 	width: 100px;
+}
+
+.print {
+	background: #9AF;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+	background-image: -moz-linear-gradient(#00ADEE 5%, #0078A5 100%);
+	background-image: -webkit-linear-gradient(#00ADEE 5%, #0078A5 100%);
+	border-radius: 0.5em;
+	border-color: #0076A3;
+	color: #FFF;
+	cursor: pointer;
+	font-weight: bold;
+	text-shadow: 0 -1px 2px rgba(0,0,0,0.333);
+	text-align: center;
+	/* margin: 0 auto; */
+	position: relative;
+	margin-left: 20px;
+	/* margin-bottom: 10px; */
+	width: 100px; 
 }
 
 .add, .cut
