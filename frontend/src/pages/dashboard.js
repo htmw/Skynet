@@ -75,7 +75,7 @@ const Home = () => (
                                             <h5>Recent Users</h5>
                                         </div>
                                         <div className="card-block px-0 py-3">
-                                            <div className="table-responsive">
+                                            <div >
                                                 <table className="table table-hover">
                                                     <tbody>
                                                         <tr className="unread">

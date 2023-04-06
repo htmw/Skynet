@@ -149,7 +149,7 @@ export default function Cash() {
     <div>
         <div className="cash_div" id="cash_div" ref={printTemp}>
         <header>
-          <h1>Invoice</h1>
+          <h1 className="cash-header">Invoice</h1>
           <address >
             <p>One Pace Plaza</p>
             <p>New York, NY 10038</p>

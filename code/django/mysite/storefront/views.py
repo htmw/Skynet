@@ -7,6 +7,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.request import Request
 # from rest_framework.permissions import IsAuthenticated
+from django.http import *
+import requests
+import json
+from datetime import datetime
 
 from .models import *
 from .serializer import *
@@ -217,3 +221,118 @@ class CashtView(APIView):
             count = inventory2['quantity'] - int(quantity)
             Inventory.objects.filter(stackID=inventory2['stackID']).update(quantity=count)
         return Response({"code": 0, "msg": "Cash success"})
+    
+
+
+#tracking functions
+
+def get_ups_tracking_info(response, tracking_number):
+    trans_id = '12345'
+    transaction_src = 'Skynet Capstone'
+    access_license_number = '0DD15E0D975760E1'
+
+    url = f'https://wwwcie.ups.com/track/v1/details/{tracking_number}'
+    headers = {
+        'transID': trans_id,
+        'transactionSrc': transaction_src,
+        'AccessLicenseNumber': access_license_number
+    }
+
+    response = requests.get(url, headers=headers)
+    json_response = json.loads(response.content)
+    status_descriptions = []
+    for activity in json_response['trackResponse']['shipment'][0]['package'][0]['activity']:
+        status = activity['status']['description']
+        date = datetime.strptime(activity['date'], '%Y%m%d').date()
+        time = datetime.strptime(activity['time'], '%H%M%S').time()
+        status_descriptions.append(f'Status: {status.rstrip()}: Date: {date} at {time}')
+
+    pretty_response = json.dumps(status_descriptions, indent=4)
+    print(HttpResponse(pretty_response, content_type="application/json"))
+
+    return HttpResponse(pretty_response, content_type="application/json")
+
+
+#test function to veiw the JSON response format
+def test_ups_tracking_info(response):
+    tracking_number = '1Z5338FF0107231059'
+    trans_id = '12345'
+    transaction_src = 'Skynet Capstone'
+    access_license_number = '0DD15E0D975760E1'
+
+    url = f'https://wwwcie.ups.com/track/v1/details/{tracking_number}'
+    headers = {
+        'transID': trans_id,
+        'transactionSrc': transaction_src,
+        'AccessLicenseNumber': access_license_number
+    }
+
+    response = requests.get(url, headers=headers)
+    json_response = json.loads(response.content)
+    status_descriptions = []
+    for activity in json_response['trackResponse']['shipment'][0]['package'][0]['activity']:
+        status = activity['status']['description']
+        date = datetime.strptime(activity['date'], '%Y%m%d')
+        time = datetime.strptime(activity['time'], '%H%M%S')
+        status_descriptions.append(f'Status: {status.rstrip()}: Date: {date} at {time}')
+
+    pretty_response = json.dumps(status_descriptions, indent=4)
+    #pretty_response = json.dumps(json_response, indent=4)
+
+
+    print(HttpResponse(pretty_response, content_type="application/json"))
+
+    return HttpResponse(pretty_response, content_type="application/json")
+
+def address_verify_UPS(request):
+    trans_id = '12345'
+    transaction_src = 'Skynet Capstone'
+    access_license_number = '0DD15E0D975760E1'
+    username = 'vBp1ER70HisKWtX5jr7GNyrdhhCrmrkNtQIRADaYAfAhwQhS'
+    password = '7DnBBPbyGPdfWth8VZg8V5SRtMBD10LqfjnqCcPLSNWvvaSqSTGx5TSk8s3pf2iq'
+        
+    #pull data from React Request
+    if request.method == 'POST':
+        streetNumber = request.data.get('streetNumber')
+        city = request.data.get('city')
+        state = request.data.get('state')
+        zip = request.data.get('zipCode')
+    
+
+        #send request to UPS API
+        baseURL = 'https://wwwcie.ups.com/addressvalidation/v1/3'
+        headers = {
+            'AccessLicenseNumber' : access_license_number,
+            'Username' :username,
+            'Password' : password
+
+        }
+        data = {
+            'address':{
+                'AddressLine' : streetNumber,
+                'City' : city,
+                'State' : state,
+                'Zip' : zip   
+
+            }
+        }
+
+        response = requests.post(baseURL, json=data, headers=headers)
+
+        #parse response
+        if response.status_code == 200:
+            verification_status = response.json().get('addressClassification', {}).get('description', '')
+            return JsonResponse({'verification_status': verification_status})
+        else:
+            return JsonResponse({'error': 'Failed to verify address'})
+    else:
+        return JsonResponse({'error': 'Invalid request method'})
+
+
+
+
+
+ 
+        
+
+

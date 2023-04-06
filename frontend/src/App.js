@@ -15,6 +15,7 @@ import Cash from './pages/cash';
 import TrackingUSPS from './components/tracking/trackingUSPS';
 import TrackingRedirect from './components/tracking/trackingRedirect';
 import TrackingUPS from './components/tracking/trackingUPS';
+import AdressVerifyUPS from './components/addressVerification/addressVerifyUPS'
 
 
 
@@ -51,6 +52,7 @@ function App() {
                                 <Route path="/tracking" element ={<TrackingRedirect/>}  />
                                 <Route path="/trackingUSPS" element ={<TrackingUSPS />}  />
                                 <Route path="/trackingUPS" element ={<TrackingUPS />}  />
+                                <Route path="/addressVerifyUPS" element ={<AdressVerifyUPS />}  />
                                 <Route path="/itemchart" element ={<ItemChart />}  />
                                 <Route path="/orderchart" element ={<OrderChart />}  />
                                 <Route path="/cashregisters" element={<Cash />} />  {/* what is this crash? */}

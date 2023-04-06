@@ -28,7 +28,7 @@ function InputToOutput() {
   const handleButtonClick = () => {
     
     if(inputValue == "1Z5338FF0107231059")
-      setOutputValue("Status: Delivery Attempted");
+      setOutputValue('');
     else
     setOutputValue("Error: Please enter valid tracking number"); 
     setShowTextBox(true);

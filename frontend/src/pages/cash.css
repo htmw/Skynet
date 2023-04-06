@@ -18,26 +18,26 @@
 
 /* content editable */
 
-*[contenteditable] { border-radius: 0.25em; min-width: 1em; outline: 0; }
-
-*[contenteditable] { cursor: pointer; }
-
-*[contenteditable]:hover, *[contenteditable]:focus, td:hover *[contenteditable], td:focus *[contenteditable], img.hover { background: #DEF; box-shadow: 0 0 1em 0.5em #DEF; }
-
-span[contenteditable] { display: inline-block; }
-
-/* heading */
-
-h1 { font: bold 100% sans-serif; letter-spacing: 0.5em; text-align: center; text-transform: uppercase; }
-
-/* table */
-
-table { font-size: 75%; table-layout: fixed; width: 100%; }
-table { border-collapse: separate; border-spacing: 2px; }
-th, td { border-width: 1px; padding: 0.5em; position: relative; text-align: left; }
-th, td { border-radius: 0.25em; border-style: solid; }
-th { background: #EEE; border-color: #BBB; }
-td { border-color: #DDD; }
+ *[contenteditable] { border-radius: 0.25em; min-width: 1em; outline: 0; }
+ 
+ *[contenteditable] { cursor: pointer; }
+ 
+ *[contenteditable]:hover, *[contenteditable]:focus, td:hover *[contenteditable], td:focus *[contenteditable], img.hover { background: #DEF; box-shadow: 0 0 1em 0.5em #DEF; }
+ 
+ span[contenteditable] { display: inline-block; }
+ 
+ /* heading */
+ 
+ h1 { font: bold 100% sans-serif; letter-spacing: 0.5em; text-align: center; text-transform: uppercase; }
+ 
+ /* table */
+ 
+ table { font-size: 75%; table-layout: fixed; width: 100%; }
+ table { border-collapse: separate; border-spacing: 2px; }
+ th, td { border-width: 1px; padding: 0.5em; position: relative; text-align: left; }
+ th, td { border-radius: 0.25em; border-style: solid; }
+ th { background: #EEE; border-color: #BBB; }
+ td { border-color: #DDD; }
 
 /* page */
 
