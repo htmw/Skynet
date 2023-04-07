@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import logo from '../tracking/Logos/LOGO_S.jpg';
+import './addressVerifyUPS.css';
 
 
 function AdressVerifyUPS(){
@@ -49,22 +50,22 @@ function AdressVerifyUPS(){
           <br/>
           <br/>
           <form onSubmit={handleSubmit}>
-            <label>
+            <label className='verify-style'>
               Street number and name: 
-              <input type="text" name = "streetNumber" onBlur={handleChange} />
+              <input type="text" name = "streetNumber" onBlur={handleChange} size={100} />
             </label>
             <br/>
-            <label>
+            <label className='verify-style'>
               City: 
               <input type="text" name = 'city' onBlur={handleChange} />
             </label>
             <br/>
-            <label>
+            <label className='verify-style'>
               State: 
               <input type="text" name = 'state' onBlur={handleChange} />
             </label>
             <br/>
-            <label>
+            <label className='verify-style'>
               Zip: 
               <input type="text" name = 'zipCode' onBlur={handleChange} />
             </label>

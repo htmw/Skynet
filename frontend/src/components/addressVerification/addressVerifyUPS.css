@@ -1,0 +1,6 @@
+verify-style {
+    display: inline-block;
+    width: 150px; /* adjust the value to make the labels wider or narrower */
+    text-align: right;
+    margin-bottom: 10px;
+  }

@@ -26,7 +26,7 @@ class ShipmentSerializer(serializers.ModelSerializer):
 class InventorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Inventory
-        fields = ['stackID','itemID','quantity', 'expirationDate','inboundDate']
+        fields = ['stackID', 'itemID', 'itemDescription', 'quantity', 'expirationDate', 'inboundDate', 'lowQuantity']
 
 class GoodsReceiptSerializer(serializers.ModelSerializer):
     class Meta:

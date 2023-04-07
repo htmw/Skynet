@@ -48,7 +48,7 @@ class Shipment(models.Model):
     shipDate = models.DateField()
     note = models.CharField(max_length = 300)
     def __str__(self):
-        return self.email
+        return self.shipID
 
 class Inventory(models.Model):
     stackID = models.AutoField(primary_key=True)
@@ -56,8 +56,15 @@ class Inventory(models.Model):
     quantity = models.IntegerField()
     expirationDate = models.DateField()
     inboundDate = models.DateField()
+    lowQuantity = models.IntegerField(null=False, default= 1)
+
+    # function to add item description to inventory table
+    def itemDescription(self):
+        return self.itemID.description
+
     def __str__(self):
         return self.stackID
+ 
 
 class GoodsReceipt(models.Model):
     recID = models.AutoField(primary_key=True)
