@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'storefront.apps.StorefrontConfig',
     'rest_framework',
     'corsheaders',
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
