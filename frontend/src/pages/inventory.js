@@ -8,28 +8,18 @@ export default function InventoryPage() {
 
   const [itemId, setItemId] = React.useState('')
   const [quantityOrder, setQuantityOrder] = React.useState('')
+  const [lowQuantity, setlowQuantity] = React.useState('')
   const [expirationDateOrder, setExpirationDateOrder] = React.useState('')
-  const [Check, setCheck] = React.useState(0)
-  let quantityCheck = undefined
+
 
   let formDatas = {
     stackID: '',
     itemID: '',
     quantity: '',
     expirationDate: '',
-    inboundDate: ''
+    inboundDate: '',
   }
-  const handleCheck = () => {
-    setItemsto(Itemsto)
-    for (let i = 0, len = items.length; i < len; i++) {
-      if (items[i].quantity > quantityCheck) {
-        Itemsto.splice(i, 1)
-        i--
-        len--
-      }
-    }
-    setCheck(Math.round(Math.random() * 10))
-  }
+
 
   React.useEffect(() => {
     listItem()
@@ -42,16 +32,20 @@ export default function InventoryPage() {
   const quantityChanged = event => {
     setQuantityOrder(event.target.value)
   }
+  const lowQuantityChanged = event => {
+    setlowQuantity(event.target.value)
+  }
 
   const expirationDateChanged = event => {
     setExpirationDateOrder(event.target.value)
   }
 
-  const listItem = id => {
+  const listItem = id => {``
     let url = 'http://localhost:8000/inventory/?'
     url += 'itemId=' + id
     url += '&quantityOrder=' + quantityOrder
     url += '&expirationDateOrder=' + expirationDateOrder
+    url += '&lowQuantity=' + lowQuantity
 
     fetch(url)
       .then(res => res.json())
@@ -320,8 +314,8 @@ export default function InventoryPage() {
         </div>
         <div>
           <label htmlFor="quantity">Enter Quantity:</label>
-          <input type="number" value={quantityCheck} onChange={change} />
-          <button onClick={handleCheck}>Check Inventory</button>
+          <input type="number" value={quantityCheck} onChange={lowQuantityChanged} />
+          <button onClick={search}>Check Inventory</button>
         </div>
 
         {/* add button */}
@@ -380,7 +374,7 @@ export default function InventoryPage() {
               aria-label="close"
               onClick={closeModal}
             >
-              X
+      
             </button>
           </header>
           <section className="modal-body">
