@@ -40,7 +40,7 @@ const Navbar = () => {
                         <NavLink to="/tracking" className="nav-link is-active "><span className="pcoded-micon"><i className="feather icon-server"></i></span><span className="pcoded-mtext">Tracking</span></NavLink>
                     </li>
                     <li data-username="Table bootstrap datatable footable" className="nav-item">
-                        <NavLink to="/addressVerify" className="nav-link is-active "><span className="pcoded-micon"><i className="feather icon-server"></i></span><span className="pcoded-mtext">Address Verification</span></NavLink>
+                        <NavLink to="/addressVerifyUPS" className="nav-link is-active "><span className="pcoded-micon"><i className="feather icon-server"></i></span><span className="pcoded-mtext">Address Verification</span></NavLink>
                     </li>
                     </ul>
             </div>

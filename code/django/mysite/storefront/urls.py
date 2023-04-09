@@ -1,5 +1,6 @@
 from django.urls import path,include
 from . import views
+from . import upsViews
 
 #store specific urls.py file
 
@@ -59,13 +60,14 @@ urlpatterns = [
 
      #tracking URLS
 
-     path('tracking_UPS/<str:tracking_number>/', views.get_ups_tracking_info, name= 'get_ups_tracking_info' ),
+     path('tracking_UPS/<str:tracking_number>/', upsViews.get_ups_tracking_info, name= 'get_ups_tracking_info' ),
      #path('tracking_UPS/', views.get_ups_tracking_info, name= 'get_ups_tracking_info' ),
      #path('test_ups_tracking_info/', views.test_ups_tracking_info),
 
      #Address Verification URLS
      
-     path('verify_Address_UPS/', views.address_verify_UPS),
+     path('address_verify_UPS/', upsViews.address_verify_UPS),
+     path('addressTest/', upsViews.addressTest)
 
 
 ]
