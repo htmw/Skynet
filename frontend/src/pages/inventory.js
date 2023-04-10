@@ -1,5 +1,6 @@
 import React from 'react'
 import AppCss from '../App.css'
+
 export default function InventoryPage() {
   const [items, setItems] = React.useState([])
   const [allItems, setAllItems] = React.useState([])
@@ -40,7 +41,7 @@ export default function InventoryPage() {
     setExpirationDateOrder(event.target.value)
   }
 
-  const listItem = id => {``
+  const listItem = id => {
     let url = 'http://localhost:8000/inventory/?'
     url += 'itemId=' + id
     url += '&quantityOrder=' + quantityOrder
