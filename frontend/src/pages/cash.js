@@ -157,7 +157,7 @@ export default function Cash() {
           {/* <span><img alt="" src="http://www.jonathantneal.com/examples/invoice/logo.png" /><input type="file" accept="image/*" /></span> */}
         </header>
         <article>
-          <h1>Recipient</h1>
+          <h1 >Recipient</h1>
           <address >
             <p>Some Company<br/>c/o Some Guy</p>
           </address>

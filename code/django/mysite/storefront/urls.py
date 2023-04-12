@@ -1,6 +1,7 @@
 from django.urls import path,include
 from . import views
 from . import upsViews
+from .helperFunctions import csvtoJson
 
 #store specific urls.py file
 
@@ -62,12 +63,14 @@ urlpatterns = [
 
      path('tracking_UPS/<str:tracking_number>/', upsViews.get_ups_tracking_info, name= 'get_ups_tracking_info' ),
      #path('tracking_UPS/', views.get_ups_tracking_info, name= 'get_ups_tracking_info' ),
-     #path('test_ups_tracking_info/', views.test_ups_tracking_info),
+     path('test_ups_tracking_info/', upsViews.test_ups_tracking_info),
 
      #Address Verification URLS
      
      path('address_verify_UPS/', upsViews.address_verify_UPS),
-     path('addressTest/', upsViews.addressTest)
+     path('addressTest/', upsViews.addressTest),
+
+
 
 
 ]

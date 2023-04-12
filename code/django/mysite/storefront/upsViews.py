@@ -47,19 +47,27 @@ def get_ups_tracking_info(response, tracking_number):
 
 #test function to veiw the JSON response format
 def test_ups_tracking_info(response):
-    tracking_number = '1Z5338FF0107231059'
+    tracking_number = "1Z1442YY7229014688"
     trans_id = '12345'
     transaction_src = 'Skynet Capstone'
     access_license_number = '0DD15E0D975760E1'
 
-    url = f'https://wwwcie.ups.com/track/v1/details/{tracking_number}'
+    url = f'https://wwwcie.ups.com/track/v1/details/{tracking_number}?locale=en_US'
+    #url = f'https://onlinetools.ups.com/track/v1/details/{tracking_number}?locale=en_US'
+    #url = f'https://wwwcie.ups.com/track/v1/details/1Z5338FF0107231059'
     headers = {
         'transID': trans_id,
         'transactionSrc': transaction_src,
-        'AccessLicenseNumber': access_license_number
+        'AccessLicenseNumber': access_license_number,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+
     }
 
     response = requests.get(url, headers=headers)
+    json_response = response.json()
+    return JsonResponse(json_response)
+
     json_response = json.loads(response.content) #create python object to store the JSON response for iterating
     status_descriptions = []
     for activity in json_response['trackResponse']['shipment'][0]['package'][0]['activity']:
