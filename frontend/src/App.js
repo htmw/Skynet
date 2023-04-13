@@ -49,13 +49,11 @@ function App() {
                                 <Route path="/item" element={<Item />} />
                                 <Route path="/inventory" element={<InventoryPage />} />
                                 <Route path="/order" element={<Order />} />
-                                <Route path="/tracking" element ={<TrackingRedirect/>}  />
-                                <Route path="/trackingUSPS" element ={<TrackingUSPS />}  />
-                                <Route path="/trackingUPS" element ={<TrackingUPS />}  />
+                                <Route path="/tracking" element ={<TrackingUPS />}  />
                                 <Route path="/addressVerifyUPS" element ={<AdressVerifyUPS />}  />
                                 <Route path="/itemchart" element ={<ItemChart />}  />
                                 <Route path="/orderchart" element ={<OrderChart />}  />
-                                <Route path="/cashregisters" element={<Cash />} />  {/* what is this crash? */}
+                                <Route path="/cashregisters" element={<Cash />} />
                             </Routes>
                         </div>
                     </div>
