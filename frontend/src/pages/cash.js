@@ -104,7 +104,7 @@ export default function Cash() {
     let data = []
     for(let i = 0; i < lists.length; i++){
       if(lists[i]['itemId'] == ''){
-        alert("please select item")
+        alert("Please select item")
         return;
       }
       data.push(lists[i]);

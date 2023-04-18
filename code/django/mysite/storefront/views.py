@@ -215,7 +215,7 @@ class CashtView(APIView):
             o.save()
             count = inventory2['quantity'] - int(quantity)
             Inventory.objects.filter(stackID=inventory2['stackID']).update(quantity=count)
-        return Response({"code": 0, "msg": "Cash successful"})
+        return Response({"code": 0, "msg": "Submission successful"})
     
 
 
