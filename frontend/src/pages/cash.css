@@ -32,12 +32,11 @@
  
  /* table */
  
- table { font-size: 75%; table-layout: fixed; width: 100%; }
- table { border-collapse: separate; border-spacing: 2px; }
- th, td { border-width: 1px; padding: 0.5em; position: relative; text-align: left; }
- th, td { border-radius: 0.25em; border-style: solid; }
- th { background: #EEE; border-color: #BBB; }
- td { border-color: #DDD; }
+ table.meta, table.inventory, table.balance{ font-size: 75%; table-layout: fixed; width: 100%; }
+ table.meta, table.inventory, table.balance{ border-collapse: separate; border-spacing: 2px; }
+ table.meta th,  table.meta td, table.inventory th,  table.inventory td, table.balance th,  table.balance td { border-width: 1px; padding: 0.5em; position: relative; text-align: left; border-radius: 0.25em; border-style: solid; }
+ table.meta th, table.inventory th, table.balance th { background: #EEE; border-color: #BBB; }
+ table.meta td, table.inventory td, table.balance td { border-color: #DDD; }
 
 /* page */
 

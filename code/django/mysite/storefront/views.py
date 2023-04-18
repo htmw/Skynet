@@ -185,15 +185,14 @@ class DeleteOrderView(APIView):
 class CashtView(APIView):
     def post(self, request: Request):
         arr = request.data
-
         for e in arr:
             itemId = e['itemId']
             quantity = e['quantity']
             inventory = Inventory.objects.filter(itemID=itemId).first()
             inventory2 = InventorySerializer(inventory).data
-            if inventory2 is None or inventory2['quantity'] < int(quantity):
-                return Response({"code": 1, "msg": "Inventory not enough"})
-        now = datetime.datetime.now()
+            if inventory2 is None or inventory2['quantity'] is None or inventory2['quantity'] < int(quantity):
+                return Response({"code": 1, "msg": "Inventory shortage"})
+        now = datetime.now()
         no = now.strftime("%Y%m%d%H%M%S%f")
         s = Shipment(trackingNo=no, shipDate=now, note="")
         # shipment = ShipmentSerializer(data=s)
@@ -216,7 +215,7 @@ class CashtView(APIView):
             o.save()
             count = inventory2['quantity'] - int(quantity)
             Inventory.objects.filter(stackID=inventory2['stackID']).update(quantity=count)
-        return Response({"code": 0, "msg": "Cash success"})
+        return Response({"code": 0, "msg": "Cash successful"})
     
 
 
