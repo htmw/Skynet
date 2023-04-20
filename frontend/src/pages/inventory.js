@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AppCss from '../App.css';
 export default function InventoryPage() {
     const [items, setItems] = React.useState([]);
@@ -9,6 +9,8 @@ export default function InventoryPage() {
     const [itemId, setItemId] = React.useState('');
     const [quantityOrder, setQuantityOrder] = React.useState('');
     const [expirationDateOrder, setExpirationDateOrder] = React.useState('');
+
+   
 
     const [quantity, setQuantity] = React.useState('');
     const [lowQuantityItems, setLowQuantityItems] = React.useState([]);
@@ -160,6 +162,7 @@ export default function InventoryPage() {
 
     }
 
+
     function submitForm(datas) {
         if (datas.stackID === "") {
             console.log(datas, allItems);
@@ -308,8 +311,9 @@ export default function InventoryPage() {
             <table className="my-table">
             <thead>
                 <tr>
-                <th>#</th>
+                {/*<th>#</th>*/}
                 <th>itemID</th>
+                <th>description</th>
                 <th>quantity</th>
                 <th>inboundDate</th>
                 <th>expirationDate</th>
@@ -317,10 +321,11 @@ export default function InventoryPage() {
                 </tr>
             </thead>
             <tbody>
-                {items.map((item, i) => (
-                <tr key={i}>
-                    <td>{i+1}</td>
+                {items.map((item, stackID) => (
+                <tr key={stackID}> {/*changed to Inventory id. using i as the key defeats the purpose of setting up a FK to item - josh*/} 
+                    {/*<td>{i+1}</td>*/}
                     <td>{item.itemID}</td>
+                    <td>{item.itemID.description}</td>
                     <td>{item.quantity}</td>
                     <td>{item.inboundDate}</td>
                     <td>{item.expirationDate}</td>

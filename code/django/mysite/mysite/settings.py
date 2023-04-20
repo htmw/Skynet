@@ -97,7 +97,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'skynet',
         'USER': 'root',
-        'PASSWORD': '123456',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '3306',
     }
