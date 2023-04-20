@@ -12,10 +12,9 @@ import Order from './pages/order';
 import ItemChart from './pages/itemchart';
 import OrderChart from './pages/orderchart';
 import Cash from './pages/cash';
-import TrackingUSPS from './components/tracking/trackingUSPS';
-import TrackingRedirect from './components/tracking/trackingRedirect';
 import TrackingUPS from './components/tracking/trackingUPS';
 import AdressVerifyUPS from './components/addressVerification/addressVerifyUPS'
+import Order_Metrics from './components/ML_order/order_metrics'
 
 
 
@@ -54,6 +53,7 @@ function App() {
                                 <Route path="/itemchart" element ={<ItemChart />}  />
                                 <Route path="/orderchart" element ={<OrderChart />}  />
                                 <Route path="/cashregisters" element={<Cash />} />
+                                <Route path="/ml_order" element={<Order_Metrics />} />
                             </Routes>
                         </div>
                     </div>
