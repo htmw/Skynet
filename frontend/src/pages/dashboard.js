@@ -1,12 +1,17 @@
-
 import React from "react";
+import { Itembarchart, Itemlinechart, Itempiechart }from './itemchart.js'
+import { Orderbarchart } from './orderchart.js'
+import { DashOrder } from "./order.js";
 
 const Home = () => (
   <div>
 
                 <div className="pcoded-inner-content">
-
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+                        <img src="Color logo - no backgroundfull.png" style={{ height: '300px' }} />
+                    </div>
                     <div className="main-body">
+
                         <div className="page-wrapper">
 
                             <div className="row">
@@ -14,19 +19,8 @@ const Home = () => (
                                 <div className="col-md-6 col-xl-4">
                                     <div className="card daily-sales">
                                         <div className="card-block">
-                                            <h6 className="mb-4">Daily Sales</h6>
-                                            <div className="row d-flex align-items-center">
-                                                <div className="col-9">
-                                                    <h3 className="f-w-300 d-flex align-items-center m-b-0"><i className="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ 249.95</h3>
-                                                </div>
-
-                                                <div className="col-3 text-right">
-                                                    <p className="m-b-0">67%</p>
-                                                </div>
-                                            </div>
-                                            <div className="progress m-t-30" >
-                                                <div className="progress-bar progress-c-theme" role="progressbar"  aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
+                                            <h1 className="mb-4">Items</h1>
+                                            <Itemlinechart />
                                         </div>
                                     </div>
                                 </div>
@@ -34,18 +28,8 @@ const Home = () => (
                                 <div className="col-md-6 col-xl-4">
                                     <div className="card Monthly-sales">
                                         <div className="card-block">
-                                            <h6 className="mb-4">Monthly Sales</h6>
-                                            <div className="row d-flex align-items-center">
-                                                <div className="col-9">
-                                                    <h3 className="f-w-300 d-flex align-items-center  m-b-0"><i className="feather icon-arrow-down text-c-red f-30 m-r-10"></i>$ 2.942.32</h3>
-                                                </div>
-                                                <div className="col-3 text-right">
-                                                    <p className="m-b-0">36%</p>
-                                                </div>
-                                            </div>
-                                            <div className="progress m-t-30" >
-                                                <div className="progress-bar progress-c-theme2" role="progressbar"  aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
+                                            <h1 className="mb-4">Orders</h1>
+                                            <Orderbarchart />
                                         </div>
                                     </div>
                                 </div>
@@ -53,18 +37,8 @@ const Home = () => (
                                 <div className="col-md-12 col-xl-4">
                                     <div className="card yearly-sales">
                                         <div className="card-block">
-                                            <h6 className="mb-4">Yearly Sales</h6>
-                                            <div className="row d-flex align-items-center">
-                                                <div className="col-9">
-                                                    <h3 className="f-w-300 d-flex align-items-center  m-b-0"><i className="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ 8.638.32</h3>
-                                                </div>
-                                                <div className="col-3 text-right">
-                                                    <p className="m-b-0">80%</p>
-                                                </div>
-                                            </div>
-                                            <div className="progress m-t-30" >
-                                                <div className="progress-bar progress-c-theme" role="progressbar"  aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
+                                            <h1 className="mb-4">Items</h1>
+                                            <Itempiechart />
                                         </div>
                                     </div>
                                 </div>
@@ -72,70 +46,7 @@ const Home = () => (
                                 <div className="col-xl-8 col-md-6">
                                     <div className="card Recent-Users">
                                         <div className="card-header">
-                                            <h5>Recent Users</h5>
-                                        </div>
-                                        <div className="card-block px-0 py-3">
-                                            <div >
-                                                <table className="table table-hover">
-                                                    <tbody>
-                                                        <tr className="unread">
-                                                            <td><img className="rounded-circle" src="assets/images/user/avatar-1.jpg" alt="activity-user"/></td>
-                                                            <td>
-                                                                <h6 className="mb-1">Isabella Christensen</h6>
-                                                                <p className="m-0">Lorem Ipsum is simply…</p>
-                                                            </td>
-                                                            <td>
-                                                                <h6 className="text-muted"><i className="fas fa-circle text-c-green f-10 m-r-15"></i>11 MAY 12:56</h6>
-                                                            </td>
-                                                            <td><a href="#!" className="label theme-bg2 text-white f-12">Reject</a><a href="#!" className="label theme-bg text-white f-12">Approve</a></td>
-                                                        </tr>
-                                                        <tr className="unread">
-                                                            <td><img className="rounded-circle" src="assets/images/user/avatar-2.jpg" alt="activity-user"/></td>
-                                                            <td>
-                                                                <h6 className="mb-1">Mathilde Andersen</h6>
-                                                                <p className="m-0">Lorem Ipsum is simply text of…</p>
-                                                            </td>
-                                                            <td>
-                                                                <h6 className="text-muted"><i className="fas fa-circle text-c-red f-10 m-r-15"></i>11 MAY 10:35</h6>
-                                                            </td>
-                                                            <td><a href="#!" className="label theme-bg2 text-white f-12">Reject</a><a href="#!" className="label theme-bg text-white f-12">Approve</a></td>
-                                                        </tr>
-                                                        <tr className="unread">
-                                                            <td><img className="rounded-circle" src="assets/images/user/avatar-3.jpg" alt="activity-user"/></td>
-                                                            <td>
-                                                                <h6 className="mb-1">Karla Sorensen</h6>
-                                                                <p className="m-0">Lorem Ipsum is simply…</p>
-                                                            </td>
-                                                            <td>
-                                                                <h6 className="text-muted"><i className="fas fa-circle text-c-green f-10 m-r-15"></i>9 MAY 17:38</h6>
-                                                            </td>
-                                                            <td><a href="#!" className="label theme-bg2 text-white f-12">Reject</a><a href="#!" className="label theme-bg text-white f-12">Approve</a></td>
-                                                        </tr>
-                                                        <tr className="unread">
-                                                            <td><img className="rounded-circle" src="assets/images/user/avatar-1.jpg" alt="activity-user"/></td>
-                                                            <td>
-                                                                <h6 className="mb-1">Ida Jorgensen</h6>
-                                                                <p className="m-0">Lorem Ipsum is simply text of…</p>
-                                                            </td>
-                                                            <td>
-                                                                <h6 className="text-muted f-w-300"><i className="fas fa-circle text-c-red f-10 m-r-15"></i>19 MAY 12:56</h6>
-                                                            </td>
-                                                            <td><a href="#!" className="label theme-bg2 text-white f-12">Reject</a><a href="#!" className="label theme-bg text-white f-12">Approve</a></td>
-                                                        </tr>
-                                                        <tr className="unread">
-                                                            <td><img className="rounded-circle" src="assets/images/user/avatar-2.jpg" alt="activity-user"/></td>
-                                                            <td>
-                                                                <h6 className="mb-1">Albert Andersen</h6>
-                                                                <p className="m-0">Lorem Ipsum is simply dummy…</p>
-                                                            </td>
-                                                            <td>
-                                                                <h6 className="text-muted"><i className="fas fa-circle text-c-green f-10 m-r-15"></i>21 July 12:56</h6>
-                                                            </td>
-                                                            <td><a href="#!" className="label theme-bg2 text-white f-12">Reject</a><a href="#!" className="label theme-bg text-white f-12">Approve</a></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                            <DashOrder />
                                         </div>
                                     </div>
                                 </div>
@@ -145,15 +56,11 @@ const Home = () => (
                                         <div className="card-block">
                                             <div className="row align-items-center justify-content-center">
                                                 <div className="col">
-                                                    <h5 className="m-0">Upcoming Event</h5>
-                                                </div>
-                                                <div className="col-auto">
-                                                    <label className="label theme-bg2 text-white f-14 f-w-400 float-right">34%</label>
+                                                    <h5 className="m-0"> Low Inventory Alerts</h5>
                                                 </div>
                                             </div>
-                                            <h2 className="mt-3 f-w-300">45<sub className="text-muted f-14">Competitors</sub></h2>
-                                            <h6 className="text-muted mt-4 mb-0">You can participate in event </h6>
-                                            <i className="fab fa-angellist text-c-purple f-50"></i>
+                                            <h2 className="mt-3 f-w-300">45<sub className="text-muted f-14">Low Inventory Items</sub></h2>
+                                            <h6 className="text-muted mt-4 mb-0"><a href="/inventory">See more details</a></h6>
                                         </div>
                                     </div>
                                     <div className="card">

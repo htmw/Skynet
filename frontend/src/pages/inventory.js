@@ -51,10 +51,6 @@ export default function InventoryPage() {
         url += "&quantityOrder=" + quantityOrder;
         url += "&expirationDateOrder=" + expirationDateOrder;
 
-        const [itemDescription, setItemDescription] = React.useState('');
-        let itemurl = 'http://localhost:8000/item/?'
-
-
         fetch(url)
             .then(res => res.json())
             .then(json => {

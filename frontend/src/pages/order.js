@@ -1,5 +1,62 @@
 import React from "react";
 
+export function DashOrder() {
+  const [orders, setOrders] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+
+  function getToken() {
+    const tokenString = sessionStorage.getItem('token');
+    return JSON.parse(tokenString);
+  }
+
+  React.useEffect(() => {
+    fetch("http://localhost:8000/order",{
+      headers: new Headers({
+        'Authorization': 'Bearer '+ getToken()
+      })
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // Sort orders by orderDate in descending order
+        const sortedOrders = data.sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
+        // Get the first 5 items
+        const recentOrders = sortedOrders.slice(0, 5);
+        setOrders(recentOrders);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log('error: ' + error);
+      });
+  }, []);
+
+  return (
+    <div className="orders">
+      <h3>Recent Orders</h3>
+      {loading ? (
+        <p>Loading orders...</p>
+      ) : (
+        <ul>
+          {orders.map(order => (
+            <li key={order.orderID}>
+              <div className="order">
+                <div className="order-details">
+                  <p>Order ID: {order.orderID}</p>
+                  <p>Item ID: {order.itemID}</p>
+                  <p>Quantity: {order.quantity}</p>
+                  <p>Order Date: {order.orderDate}</p>
+                  <p>Order Price: {order.orderPrice}</p>
+                  <p>Customer ID: {order.customerID}</p>
+                  <p>Ship ID: {order.shipID}</p>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 export default function Order() {
 
   const [orders, setOrders] = React.useState([]);
