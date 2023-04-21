@@ -10,9 +10,6 @@ export default function InventoryPage() {
     const [quantityOrder, setQuantityOrder] = React.useState('');
     const [expirationDateOrder, setExpirationDateOrder] = React.useState('');
 
-   
-
-    const [quantity, setQuantity] = React.useState('');
     const [lowQuantityItems, setLowQuantityItems] = React.useState([]);
     
     function handleCheck() {
@@ -47,9 +44,6 @@ export default function InventoryPage() {
 
     const listItem = (id) => {
         let url = 'http://localhost:8000/inventory/?';
-        url += "itemId=" + id;
-        url += "&quantityOrder=" + quantityOrder;
-        url += "&expirationDateOrder=" + expirationDateOrder;
 
         fetch(url)
             .then(res => res.json())
@@ -59,35 +53,12 @@ export default function InventoryPage() {
                     setAllItems(json)
                 }
                 setLoading(false);
-                console.log(json);
-                let inventoryTime = localStorage.getItem("inventoryTime");
                 let flag = true;
-                if(inventoryTime){
-                    let tmpTime = new Date(parseInt(inventoryTime));
-                    let day1 = tmpTime.getFullYear() + "" + tmpTime.getMonth() + "" + tmpTime.getDate();
-                    let now = new Date();
-                    let day2 = now.getFullYear() + "" + now.getMonth() + "" + now.getDate();
-                    // console.log(tmpTime, now, day1, day2);
-                    if(day1 != day2){
-                        flag = false;
-                        localStorage.setItem("inventoryTime", +new Date());
-                    }
-                }else{
-                    flag = false;
-                    localStorage.setItem("inventoryTime", +new Date());
-                }
+                
                 if(flag){
                     return;
                 }
-                let itemStr = "";
-                let count = 0;
-                for(let i = 0; i < json.length; i++){
-                    if(json[i].quantity == 1){
-                        count++;
-                        itemStr += "," + json[i].itemID;
-                    }
-                
-            }
+
             })
             .catch(err => console.log(err));
     }

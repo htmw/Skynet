@@ -72,5 +72,6 @@ urlpatterns = [
 
 
      path('order_number_by_customer/', MLviews.order_number_by_customer),
+     path('top_customers/', MLviews.top_customers_by_orders),
 
 ]

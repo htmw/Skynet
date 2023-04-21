@@ -1,8 +1,12 @@
-import React,{ useState } from "react";
+import React,{ useState, useRef } from "react"
+
 
 
 const ML_order_function = () => {
-    const [orderCustomerResponse, setOrderCustomerResponse] = useState(null)
+    const [orderCustomerResponse, setOrderCustomerResponse] = useState(null);
+    const isOrderDataFetchedRef = useRef(null); 
+    
+    
     //order number by customer
     const handleOrderByCustomer = async() =>{
         try{
@@ -15,31 +19,30 @@ const ML_order_function = () => {
             //assign json response to a variable
             const data = await response.json();
             setOrderCustomerResponse(data);
+            isOrderDataFetchedRef.current = true;
         }
         catch(error){
             console.error(error)
         }
     };
-    handleOrderByCustomer();
 
+    const handleOrderButtonClick = () => {
+      if (!isOrderDataFetchedRef.current) {
+        handleOrderByCustomer();
+      }
+    };
+
+ 
 
     return (
         <div>
           <br/>
           <br/>
-          <form >
-            <label>
               Metrics 
-              <button className="button is-primary" onClick={handleOrderByCustomer} >Orders by Customer</button>
-              <button className="button is-primary" >top 3 customers</button>
-              {orderCustomerResponse && (
-                <div>
-                    <pre>{JSON.stringify(orderCustomerResponse, null, 4)}</pre>
-                </div>
-              )}
-             
-            </label>
-          </form>
+              <div>
+                <button className="button is-primary" onClick={handleOrderButtonClick} >Orders by Customer</button>
+                <pre>{JSON.stringify(orderCustomerResponse, null, 4)}</pre>
+              </div>
         </div>
       );
 }

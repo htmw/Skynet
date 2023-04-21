@@ -42,6 +42,9 @@ const Navbar = () => {
                     <li data-username="Table bootstrap datatable footable" className="nav-item">
                         <NavLink to="/addressVerifyUPS" className="nav-link is-active "><span className="pcoded-micon"><i className="feather icon-server"></i></span><span className="pcoded-mtext">Address Verification</span></NavLink>
                     </li>
+                    <li data-username="Table bootstrap datatable footable" className="nav-item">
+                        <NavLink to="/ml_order" className="nav-link is-active "><span className="pcoded-micon"><i className="feather icon-server"></i></span><span className="pcoded-mtext">Metrics</span></NavLink>
+                    </li>
                     </ul>
             </div>
         </div>
