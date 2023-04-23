@@ -36,37 +36,52 @@ def top_customers_by_orders(request):
     #create a dataFrame based on the returned values from Order
     df = pd.DataFrame.from_records(orderset.values())
 
+    # Create an empty DataFrame to store the results
+    result_df = pd.DataFrame(columns=['CustomerID', 'TotalOrders', 'TotalAmountSpent', 'AverageOrderPrice'])
     
-    # 计算每个顾客的订单数量
-    # Calculate the metrics of order by customer, aggregate sum, count, average and convert to the defined dataframe
-    customer_order_summary = df.groupby('customerID_id').agg({'orderPrice': ['sum', 'count', 'mean']}) 
-    customer_order_summary_df = pd.DataFrame(customer_order_summary).reset_index() #reset_index is needed to set the index back to the primary key or OrderTotal
+    orders_per_customer = df.groupby('customerID_id')['orderID'].count()
+    sorted_orders = orders_per_customer.sort_values(ascending=False)
+    top_customers = sorted_orders.iloc[:3].index.tolist()
+
+    for customerID in top_customers:
+        customer_orders = df.loc[df['customerID_id'] == customerID]
+        total_orders = customer_orders.shape[0]
+        total_spent = customer_orders['orderPrice'].sum()
+        avg_spent = customer_orders['orderPrice'].mean()
+        result_df = result_df.append({'CustomerID': customerID, 'TotalOrders': total_orders, 
+                                  'TotalAmountSpent': total_spent, 'AverageOrderPrice': avg_spent}, 
+                                 ignore_index=True)
     
-
- 
-    for index, row in customer_order_summary_df.iterrows():
-        customerid = row['customerID_id'].iloc[0]
-        totalOrders = row[('orderPrice', 'count')]
-        totalSpent = row[('orderPrice', 'sum')]
-        averageOrderPrice = row[('orderPrice', 'mean')]
-        result_instance = Order_Top_Customer(customerID=customerid, totalOrders=totalOrders, totalSpent=totalSpent, averageOrderPrice=averageOrderPrice)
-
-        result_instance, created = Order_Top_Customer.objects.update_or_create(
-            customerID=customerid,
-            defaults={
-                'totalOrders': totalOrders,
-                'totalSpent': totalSpent,
-                'averageOrderPrice': averageOrderPrice
-            }
-        )
-        if not created:
-            result_instance.totalOrders = totalOrders
-            result_instance.totalSpent = totalSpent
-            result_instance.averageOrderPrice = averageOrderPrice
-            result_instance.save()
-    return JsonResponse("test", safe=False)
+    
+    response_data = result_df.to_json(orient='records')
+    response = json.loads(response_data)
+    return JsonResponse(response, safe = False)
 
 
+def popular_item_by_month(request):
+    orderset = Order.objects.all()
+
+
+    # Create a DataFrame based on the returned values from Order
+    df = pd.DataFrame.from_records(orderset.values())
+
+    # Extract month
+    df['orderDate'] = pd.to_datetime(df['orderDate'])
+    df['month'] = df['orderDate'].dt.month
+
+    # Calculate the top items for each month
+    popular_items = df.groupby(['month', 'itemID_id'])['quantity'].sum().reset_index()
+    popular_items = popular_items.sort_values(['month', 'quantity'], ascending=[True, False])
+    popular_items = popular_items.groupby('month').head(3)
+
+    # Create an empty dictionary to store the results
+    data = []
+    for month, items in popular_items.groupby('month'):
+        item_names = [str(i) for i in items['itemID_id'][:3]]
+        data.append({"month": month, "item1": item_names[0], "item2": item_names[1], "item3": item_names[2]})
+    return JsonResponse(data, safe=False)
+
+    
 
 
     

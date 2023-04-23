@@ -70,8 +70,9 @@ urlpatterns = [
      path('address_verify_UPS/', upsViews.address_verify_UPS),
      path('addressTest/', upsViews.addressTest),
 
-
+     #Metrics and Machine Learning URLS
      path('order_number_by_customer/', MLviews.order_number_by_customer),
      path('top_customers/', MLviews.top_customers_by_orders),
+     path('items_by_month/', MLviews.popular_item_by_month),
 
 ]
