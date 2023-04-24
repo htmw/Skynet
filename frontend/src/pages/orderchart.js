@@ -210,8 +210,11 @@ function AmountDateBarChart(orders) {
 
           const filteredData = orders.filter((entry) => {
             const date = new Date(entry.orderDate);
+            console.log(date);
+            return date.getMonth() == 3 && date.getFullYear() === 2021
             return date >= new Date(oneMonthAgoFormatted) && date <= new Date(currentDateFormatted);
           });
+          
     return (
     <div>
     <h3 className="title is-1"><center>Amount of Orders from the Past Month</center></h3>
