@@ -29,33 +29,62 @@ export function DashOrder() {
       });
   }, []);
 
+  //return (
+  //  <div className="orders">
+  //    <h3>Recent Orders</h3>
+  //    {loading ? (
+  //      <p>Loading orders...</p>
+  //    ) : (
+  //      <ul>
+  //        {orders.map(order => (
+  //          <li key={order.orderID}>
+  //            <div className="order">
+  //              <div className="order-details">
+  //                <p>Order ID: {order.orderID}</p>
+  //                <p>Item ID: {order.itemID}</p>
+  //                <p>Quantity: {order.quantity}</p>
+  //                <p>Order Date: {order.orderDate}</p>
+  //                <p>Order Price: {order.orderPrice}</p>
+  //                <p>Customer ID: {order.customerID}</p>
+  //                <p>Ship ID: {order.shipID}</p>
+  //              </div>
+  //            </div>
+  //          </li>
+  //        ))}
+  //      </ul>
+  //    )}
+  //  </div>
+  //);
+
   return (
-    <div className="orders">
-      <h3>Recent Orders</h3>
+    <table>
+    <thead>
+      <tr>
+        <th width='100px'>Order ID</th>
+        <th width='100px'>Item ID</th>
+        <th width='100px'>Quantity</th>
+        <th width='100px'>Order Date</th>
+        <th width='100px'>Order Price</th>
+        </tr>
+    </thead>
       {loading ? (
         <p>Loading orders...</p>
       ) : (
-        <ul>
-          {orders.map(order => (
-            <li key={order.orderID}>
-              <div className="order">
-                <div className="order-details">
-                  <p>Order ID: {order.orderID}</p>
-                  <p>Item ID: {order.itemID}</p>
-                  <p>Quantity: {order.quantity}</p>
-                  <p>Order Date: {order.orderDate}</p>
-                  <p>Order Price: {order.orderPrice}</p>
-                  <p>Customer ID: {order.customerID}</p>
-                  <p>Ship ID: {order.shipID}</p>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <tbody>
+        {orders.map((order) => (
+            <tr key={order.orderID}>
+                  <td>{order.orderID}</td>
+                  <td>{order.itemID}</td>
+                  <td>{order.quantity}</td>
+                  <td>{order.orderDate}</td>
+                  <td>{order.orderPrice}</td>
+            </tr>
+      ))}
+      </tbody>
       )}
-    </div>
+    </table>
   );
-}
+};
 
 export default function Order() {
 

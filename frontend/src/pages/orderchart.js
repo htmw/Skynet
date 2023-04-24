@@ -164,13 +164,14 @@ function AmountDateBarChart(orders) {
         customerID: "",
         shipID: "",
       };
-     {
+      {
         React.useEffect(() => {
             fetch("http://localhost:8000/order",{
               headers: new Headers({
                 'Authorization': 'Bearer '+ getToken()
             })
             })
+            
               .then((res) => res.json())
               .then((data) => {
                 setOrders(data);

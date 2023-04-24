@@ -15,6 +15,7 @@ import Cash from './pages/cash';
 import TrackingUPS from './components/tracking/trackingUPS';
 import AdressVerifyUPS from './components/addressVerification/addressVerifyUPS'
 import Order_Metrics from './components/ML_order/order_metrics'
+import { Orderbarchart } from './pages/orderchart';
 
 
 
@@ -54,6 +55,7 @@ function App() {
                                 <Route path="/orderchart" element ={<OrderChart />}  />
                                 <Route path="/cashregisters" element={<Cash />} />
                                 <Route path="/ml_order" element={<Order_Metrics />} />
+                                <Route path="/orderbarchart" element={<Orderbarchart />} />
                             </Routes>
                         </div>
                     </div>

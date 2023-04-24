@@ -1,10 +1,37 @@
 import React from "react";
 import { Itembarchart, Itemlinechart, Itempiechart }from './itemchart.js'
 import { Orderbarchart } from './orderchart.js'
-import { DashOrder } from "./order.js";
+import { DashOrder } from "./order.js"
+import {DashLowInventory} from "./dashboardTableFormat.js"
 
-const Home = () => (
-  <div>
+const Home = () => {
+    const [lowQuantityItems, setLowQuantityItems] = React.useState([]);
+    const [inventoryItems, setInventoryItems] = React.useState([]);
+
+    function handleLowInventoryCheck() {
+        fetchInventory();
+        const lowQuantity = inventoryItems.filter((inventoryItems) => inventoryItems.quantity < inventoryItems.lowQuantity);
+        lowQuantity.sort((a, b) => a.itemID - b.itemID);
+        setLowQuantityItems(lowQuantity);
+    }
+
+    const fetchInventory = async() => {
+        try{
+            const response = await fetch('http://localhost:8000/inventory/');
+            if(response.status<200 || response.status>299){
+                throw Error('couldnt reach server or no response');
+            }
+            const allInventoryItems = await response.json();
+            setInventoryItems(allInventoryItems);
+        }
+        catch(error){
+            console.log(error);
+        } 
+
+    }
+  
+    return (
+    <div>
 
                 <div className="pcoded-inner-content">
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
@@ -56,10 +83,12 @@ const Home = () => (
                                         <div className="card-block">
                                             <div className="row align-items-center justify-content-center">
                                                 <div className="col">
-                                                    <h5 className="m-0"> Low Inventory Alerts</h5>
+                                                    <h3>Low Inventory Items</h3>
+                                                    <button onClick={handleLowInventoryCheck}> refresh</button>
+                                                    <DashLowInventory lowInventoryItems = {lowQuantityItems}/>
+
                                                 </div>
                                             </div>
-                                            <h2 className="mt-3 f-w-300">45<sub className="text-muted f-14">Low Inventory Items</sub></h2>
                                             <h6 className="text-muted mt-4 mb-0"><a href="/inventory">See more details</a></h6>
                                         </div>
                                     </div>
@@ -492,7 +521,8 @@ const Home = () => (
 //         </div>
 //     </div>
 //   </div>
+    );
 
-);
+};
 
 export default Home;
