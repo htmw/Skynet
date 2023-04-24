@@ -73,6 +73,7 @@ const Home = () => {
                                 <div className="col-xl-8 col-md-6">
                                     <div className="card Recent-Users">
                                         <div className="card-header">
+                                            <h3>Recent Orders</h3>
                                             <DashOrder />
                                         </div>
                                     </div>
