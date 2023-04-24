@@ -105,5 +105,69 @@ export const TopItemsByMonth = ({items}) => {
       ))}
     </tbody>
     </table>
-  )
-}
+  );
+};
+
+export const TopThreeOrderCombo = ({topthreecomboorders}) => {
+  const parsedData = JSON.parse(topthreecomboorders);
+  
+  const result3 = parsedData.result_3;
+  console.log(result3);
+
+  
+  return (
+    <table>
+    <thead>
+      <tr>
+        <th width='100px'>Items</th>
+        <th width='100px'>lift</th>
+        <th width='100px'>support</th>
+        <th width='100px'>confidence</th>
+        </tr>
+    </thead>
+    <tbody>
+    {result3.map((result, index) => (
+      <tr key={index}>
+          <td width='100px'>{result.combo.join(', ')}</td>
+          <td width='100px'>{(result.lift).toFixed(2)}</td>
+          <td width='100px'>{(result.support * 100).toFixed(2)}%</td> 
+          <td width='100px'>{(result.confidence * 100).toFixed(2)}%</td>
+          
+      </tr>
+      ))}
+    </tbody>
+    </table>
+  );
+};
+
+export const TopTwoOrderCombo = ({toptwocomboorders}) => {
+  const parsedData = JSON.parse(toptwocomboorders);
+  
+  const result2 = parsedData.result_2;
+  console.log(result2);
+
+  
+  return (
+    <table>
+    <thead>
+      <tr>
+        <th width='100px'>Items</th>
+        <th width='100px'>lift</th>
+        <th width='100px'>support</th>
+        <th width='100px'>confidence</th>
+        </tr>
+    </thead>
+    <tbody>
+    {result2.map((result, index) => (
+      <tr key={index}>
+          <td width='100px'>{result.combo.join(', ')}</td>
+          <td width='100px'>{(result.lift).toFixed(2)}</td>
+          <td width='100px'>{(result.support * 100).toFixed(2)}%</td> 
+          <td width='100px'>{(result.confidence * 100).toFixed(2)}%</td>
+          
+      </tr>
+      ))}
+    </tbody>
+    </table>
+  );
+};

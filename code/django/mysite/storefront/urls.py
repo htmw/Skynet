@@ -74,5 +74,6 @@ urlpatterns = [
      path('order_number_by_customer/', MLviews.order_number_by_customer),
      path('top_customers/', MLviews.top_customers_by_orders),
      path('items_by_month/', MLviews.popular_item_by_month),
+     path('items_bought_together/',MLviews.items_bought_together),
 
 ]
