@@ -43,7 +43,8 @@ urlpatterns = [
      path('item/find/<int:pk>/', views.FindItemView.as_view(), name='storefront-item'),
 
      path('item/add/', views.AddItemView.as_view(), name='storefront-item'),
-
+     path('item/add/<str:barcode>', views.scanned_barcode_lookup, name='storefront-item-scan'),
+     path('item/add_test/', views.scanned_barcode_lookup_test, name='storefront-item-scan-test'),
      path('item/update/<int:pk>/', views.UpdateItemView.as_view(), name='storefront-item'),
 
      path('item/delete/<int:pk>/', views.DeleteItemView.as_view(), name='storefront-item'),

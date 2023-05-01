@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useScanner } from "../components/useScanner";
 let lock = false;
 
+
+
 export default function Item() {
   const [items, setItems] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
@@ -222,27 +224,36 @@ export default function Item() {
     start((code) => {
       if (code && !lock) {
         lock = true;
-        fetch(`https://barcode-look-api.herokuapp.com/product/${code}`)
+        fetch(`http://localhost:8000/item/add/${code}`)
           .then(res => {
             if (res.status === 404) {
               alert('Not found');
               return;
             }
-            return res.json();
+            if(res.status == 500){
+              alert('bad response from backend server');
+              return;
+            }
+            if(res.status >= 200 && res.status<=299)
+              return res.json();
           })
           .then(data => {
             // result
-            if (data && Array.isArray(data.products) && data.products.length > 0) {
-              const product = data.products[0];
+            if (data) {
+              const product = data.products;
               const description = product.description;
               const title = product.title;
-              const prices = product.stores.map(item => Number(item.price));
-              const classification = product.category.split(' > ');
-              const avgPrice = prices.reduce((prev, next) => prev + next, 0) / prices.length;
+              const price = product.price;
+              const classification = product.category;              
+              //sending these calculated from backend
+              //const prices = product.stores.map(item => Number(item.price));
+              //const classification = product.category.split(' > ');
+              //const avgPrice = prices.reduce((prev, next) => prev + next, 0) / prices.length;
+             
               setNote(description);
               setDescription(title);
-              setSellingPrice(avgPrice.toFixed(2));
-              setClassification(classification.join(' - '));
+              setSellingPrice(price.toFixed(2));
+              setClassification(classification);
             }
           }).catch(err => {
             console.log(err)

@@ -49,6 +49,8 @@ export const ScannerProvider = ({children}) => {
 
       Quagga.onDetected((res) => {
         const code = res.codeResult.code;
+        console.log(`barcode scanned: ${code}`);
+        alert(`barcode scanned: ${code}`);
         callback && callback(code);
         stop();
         Quagga.stop();

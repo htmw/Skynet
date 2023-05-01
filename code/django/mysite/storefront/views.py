@@ -5,6 +5,8 @@ from rest_framework.request import Request
 # from rest_framework.permissions import IsAuthenticated
 from django.http import *
 from datetime import datetime
+import requests
+import json
 
 
 
@@ -219,3 +221,69 @@ class CashtView(APIView):
     
 
 
+def scanned_barcode_lookup(request, barcode):
+    #https://api.barcodelookup.com/v3/products?barcode=3614272049529&formatted=y&key=your_api_key
+    
+    access_key = 'r1yq3ytcgn3pqaolto4qebnu5bw6ek'
+    url = f'https://api.barcodelookup.com/v3/products?barcode={barcode}&key={access_key}'
+
+    response = requests.get(url)
+    json_data_obj = response.json()
+    
+    product_details = json_data_obj['products'][0]
+    
+    stores = product_details['stores']
+    total_price = 0.00
+    num_stores = len(stores)
+    for store in stores:
+        total_price += float(store['price'])
+
+    average_price = total_price/num_stores
+
+    product = {
+        'title' : product_details['title'],
+        'description' : product_details['description'],
+        'price' : average_price,
+        'category' : product_details['category'].split('>', 1)[1].strip().split('>', 1)[0].strip(),
+
+        #can return more if we want
+    }
+
+    json_dict = {'products': product}
+    json_data = json.dumps(json_dict)
+
+    return HttpResponse(json_data, content_type='application/json' )
+
+
+def scanned_barcode_lookup_test(request):
+    barcode = '013000006057'
+    #https://api.barcodelookup.com/v3/products?barcode=3614272049529&formatted=y&key=your_api_key
+    
+    access_key = 'r1yq3ytcgn3pqaolto4qebnu5bw6ek'
+    url = f'https://api.barcodelookup.com/v3/products?barcode={barcode}&key={access_key}'
+
+    response = requests.get(url)
+    json_data_obj = response.json()
+    
+    product_details = json_data_obj['products'][0]
+    
+    stores = product_details['stores']
+    total_price = 0.00
+    num_stores = len(stores)
+    for store in stores:
+        total_price += float(store['price'])
+
+    average_price = total_price/num_stores
+
+    product = {
+        'title' : product_details['title'],
+        'price' : average_price,
+        'category' : product_details['category'].split('>', 1)[1].strip().split('>', 1)[0].strip(),
+
+        #can return more if we want
+    }
+
+    json_dict = {'products': product}
+    json_data = json.dumps(json_dict)
+
+    return HttpResponse(json_data, content_type='application/json' )

@@ -284,7 +284,6 @@ export default function InventoryPage() {
                 <tr>
                 {/*<th>#</th>*/}
                 <th>itemID</th>
-                <th>description</th>
                 <th>quantity</th>
                 <th>inboundDate</th>
                 <th>expirationDate</th>
@@ -296,7 +295,6 @@ export default function InventoryPage() {
                 <tr key={stackID}> {/*changed to Inventory id. using i as the key defeats the purpose of setting up a FK to item - josh*/} 
                     {/*<td>{i+1}</td>*/}
                     <td>{item.itemID}</td>
-                    <td>{item.itemID.description}</td>
                     <td>{item.quantity}</td>
                     <td>{item.inboundDate}</td>
                     <td>{item.expirationDate}</td>
