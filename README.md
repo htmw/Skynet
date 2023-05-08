@@ -16,7 +16,7 @@
 | ----------------------------------------- | ----------------- |
 | [Kai Wang](https://github.com/CarviS0302)     | kaywong0302@outlook.com |
 | [Josh Krinsky](https://github.com/Jkrin393)       | jkrinsky91@gmail.com |
-| [Pete McKechnie](https://github.com/mckechniep) | mckechniep@gmail.com |
+| [Peter McKechnie](https://github.com/mckechniep) | mckechniep@gmail.com |
 | [Peter Torrente](https://github.com/pvtorrente) | pvtorrente@gmail.com |
 | [Houqi Zhan](https://github.com/HouqiZhan) | z326316507@gmail.com |
 | [Jincheng Zou](https://github.com/JinchengGH) | jzcsit@gmail.com |
